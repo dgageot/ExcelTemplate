@@ -73,4 +73,13 @@ public class ExcelTemplateTest {
 		assertThat(lines[1]).containsOnly("1");
 		assertThat(lines[2]).containsOnly("2", "A", "B", "C");
 	}
+
+	@Test
+	public void readSheetNames() {
+		ExcelTemplate reader = new ExcelTemplate("twoSheets.xls", getClass());
+
+		String[] sheetNames = reader.getSheetNames();
+
+		assertThat(sheetNames).containsOnly("Sheet1", "Sheet2");
+	}
 }

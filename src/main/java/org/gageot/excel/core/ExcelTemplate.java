@@ -35,6 +35,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.dao.CleanupFailureDataAccessException;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataAccessResourceFailureException;
+import com.google.common.base.Function;
 import com.google.common.collect.Lists;
 import com.google.common.collect.ObjectArrays;
 
@@ -108,6 +109,27 @@ public class ExcelTemplate implements InitializingBean {
 	}
 
 	/**
+	 * Read the sheet names of an Excel file.
+	 * @return an array containing a java.lang.String for each sheet. Empty if not sheet.
+	 * @throws DataAccessException if there is any problem
+	 */
+	public String[] getSheetNames() {
+		return read(new Function<HSSFWorkbook, String[]>() {
+			@Override
+			public String[] apply(HSSFWorkbook workbook) {
+				int sheetCount = workbook.getNumberOfSheets();
+
+				String[] sheetNames = new String[sheetCount];
+				for (int i = 0; i < sheetCount; i++) {
+					sheetNames[i] = workbook.getSheetName(i);
+				}
+
+				return sheetNames;
+			}
+		});
+	}
+
+	/**
 	 * Read the content of an Excel file for a given sheet name.
 	 * The content of the sheet is extracted using SheetExtractor.
 	 * @param sheetName name of the excel sheet
@@ -115,19 +137,31 @@ public class ExcelTemplate implements InitializingBean {
 	 * @return an arbitrary result object, as returned by the ResultSetExtractor
 	 * @throws DataAccessException if there is any problem
 	 */
-	public <T> T read(String sheetName, SheetExtractor<T> sheetExtractor) throws DataAccessException {
+	public <T> T read(final String sheetName, final SheetExtractor<T> sheetExtractor) throws DataAccessException {
 		checkNotNull(sheetExtractor, "SheetExtractor must not be null");
 		checkNotNull(sheetName, "sheetName must not be null");
-		checkNotNull(getResource(), "sheetName must not be null");
+
+		return read(new Function<HSSFWorkbook, T>() {
+			@Override
+			public T apply(HSSFWorkbook workbook) {
+				HSSFSheet sheet = workbook.getSheet(sheetName);
+				try {
+					return sheetExtractor.extractData(sheet);
+				} catch (IOException e) {
+					throw new DataAccessResourceFailureException("Problem reading file", e);
+				}
+			}
+		});
+	}
+
+	private <T> T read(Function<HSSFWorkbook, T> transform) {
+		checkNotNull(getResource(), "resource must not be null");
 
 		InputStream in = null;
 		try {
 			in = getResource().getInputStream();
 
-			HSSFWorkbook wb = new HSSFWorkbook(in);
-			HSSFSheet sheet = wb.getSheet(sheetName);
-
-			return sheetExtractor.extractData(sheet);
+			return transform.apply(new HSSFWorkbook(in));
 		} catch (IOException e) {
 			throw new DataAccessResourceFailureException("Problem reading file", e);
 		} finally {
