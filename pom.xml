@@ -23,7 +23,6 @@ under the License.
 	<artifactId>excel-template</artifactId>
 	<name>ExcelTemplate</name>
 	<version>1.2.0</version>
-	<url>http://excel-template.sourceforge.net/</url>
 	<description>ExcelTemplate is a Java class meant to simplify the use of Excel&#174; spreadsheets for acceptance tests. The motivation and design of this class is inspired from Spring JdbcTemplate.</description>
 	<prerequisites>
 		<maven>2.0</maven>
@@ -45,18 +44,6 @@ under the License.
 		<url>http://javabien.net/</url>
 	</organization>
 
-	<distributionManagement>
-		<site>
-			<id>sourceforge.net</id>
-			<url>scp://dgageot@shell.sourceforge.net/home/groups/e/ex/excel-template/htdocs</url>
-		</site>
-	</distributionManagement>
-
-	<issueManagement>
-		<system>sourceforge</system>
-		<url>http://sourceforge.net/tracker/?group_id=182855</url>
-	</issueManagement> 
-
 	<licenses>
 		<license>
 			<name>The Apache Software License, Version 2.0</name>
@@ -64,21 +51,6 @@ under the License.
 			<distribution>repo</distribution>
 		</license>
 	</licenses>
-
-	<scm>
-		<connection>scm:svn:https://excel-template.svn.sourceforge.net/svnroot/excel-template/</connection>
-		<developerConnection>scm:svn:https://excel-template.svn.sourceforge.net/svnroot/excel-template/</developerConnection>
-		<url>http://excel-template.svn.sourceforge.net/viewvc/excel-template/</url>
-	</scm>
-
-	<mailingLists>
-		<mailingList>
-			<name>ExcelTemplate Development Mailing list</name>
-			<subscribe>http://lists.sourceforge.net/mailman/listinfo/excel-template-devel</subscribe>
-			<unsubscribe>http://lists.sourceforge.net/mailman/listinfo/excel-template-devel</unsubscribe>
-			<post>excel-template-devel@lists.sourceforge.net</post>
-		</mailingList>
-	</mailingLists>
 
 	<build>
 		<plugins>
