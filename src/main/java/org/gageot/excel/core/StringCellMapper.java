@@ -34,6 +34,7 @@ public class StringCellMapper implements CellMapper<String> {
 
 	private SimpleDateFormat dateFormat;
 
+	@Override
 	public String mapCell(HSSFCell cell, int rowNum, int columnNum) throws IOException {
 		if (null == cell) {
 			return ""; // TODO

@@ -56,6 +56,7 @@ public class BeanCellCallbackHandler<T> implements CellCallbackHandler {
 		return beans;
 	}
 
+	@Override
 	public void processCell(HSSFCell cell, int rowNum, int columnNum) throws IOException, BeansException {
 		if (0 == rowNum) {
 			String propertyName = headerMapper.mapCell(cell, rowNum, columnNum);

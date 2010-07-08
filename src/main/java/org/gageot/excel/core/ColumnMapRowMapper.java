@@ -45,6 +45,7 @@ public class ColumnMapRowMapper<T> implements RowMapper<Map<String, T>> {
 		this.cellMapper = cellMapper;
 	}
 
+	@Override
 	public Map<String, T> mapRow(HSSFRow row, int rowNum) throws IOException {
 		Map<String, T> map = createColumnMap(row.getLastCellNum());
 

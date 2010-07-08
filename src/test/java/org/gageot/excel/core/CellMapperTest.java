@@ -20,6 +20,7 @@ public class CellMapperTest {
 	@Test
 	public void readObjectMatrix() {
 		Point[][] lines = reader.read(TAB_NAME, new CellMapper<Point>() {
+			@Override
 			public Point mapCell(HSSFCell cell, int rowNum, int columnNum) {
 				return new Point(rowNum, columnNum);
 			}

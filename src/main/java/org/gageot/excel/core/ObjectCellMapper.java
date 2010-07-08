@@ -27,6 +27,7 @@ import org.apache.poi.hssf.usermodel.HSSFCell;
  * @author David Gageot
  */
 public class ObjectCellMapper implements CellMapper<Object> {
+	@Override
 	public Object mapCell(HSSFCell cell, int rowNum, int columnNum) throws IOException {
 		try {
 			return cell.getNumericCellValue();

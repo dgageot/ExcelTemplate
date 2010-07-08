@@ -231,6 +231,7 @@ public class ExcelTemplate implements InitializingBean {
 
 	/**
 	 */
+	@Override
 	public void afterPropertiesSet() {
 		checkArgument(null != getResource(), "resource is required");
 	}
@@ -248,6 +249,7 @@ public class ExcelTemplate implements InitializingBean {
 			cellClass = aCellClass;
 		}
 
+		@Override
 		public T[] mapRow(HSSFRow row, int rowNum) throws IOException {
 			short lastColumnNum = row.getLastCellNum();
 
@@ -277,6 +279,7 @@ public class ExcelTemplate implements InitializingBean {
 			cellClass = aCellClass;
 		}
 
+		@Override
 		@SuppressWarnings("unchecked")
 		public T[][] extractData(HSSFSheet sheet) throws IOException {
 			List<T[]> rowValues = Lists.newArrayList();
@@ -317,6 +320,7 @@ public class ExcelTemplate implements InitializingBean {
 			cellMapper = aCellMapper;
 		}
 
+		@Override
 		public void processRow(HSSFRow row, int rowIndex) throws IOException {
 			if (null == rowMapper) { // First line, read keys
 				RowMapper<String[]> firstRowMapper = new ObjectArrayRowMapper<String>(new StringCellMapper(), String.class);
@@ -344,6 +348,7 @@ public class ExcelTemplate implements InitializingBean {
 			rowCallbackHandler = aRowCallbackHandler;
 		}
 
+		@Override
 		public Void extractData(HSSFSheet sheet) throws IOException {
 			int firstRowIndex = sheet.getFirstRowNum();
 			int lastRowIndex = sheet.getLastRowNum();
@@ -366,6 +371,7 @@ public class ExcelTemplate implements InitializingBean {
 			cellCallbackHandler = aCellCallbackHandler;
 		}
 
+		@Override
 		public Void extractData(HSSFSheet sheet) throws IOException {
 			int firstRowIndex = sheet.getFirstRowNum();
 			int lastRowIndex = sheet.getLastRowNum();

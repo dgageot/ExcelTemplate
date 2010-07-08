@@ -57,6 +57,7 @@ public class BeanSetterImpl implements BeanSetter {
 	 * @param propertyName the name of the property (case insensitive)
 	 * @param propertyValue the value of the property
 	 */
+	@Override
 	public void setProperty(Object bean, String propertyName, Object propertyValue) throws BeansException {
 		BeanWrapper wrapper = getWrapper(bean);
 

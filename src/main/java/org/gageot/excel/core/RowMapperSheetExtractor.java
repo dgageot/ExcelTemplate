@@ -40,12 +40,13 @@ public class RowMapperSheetExtractor<T> implements SheetExtractor<List<T>> {
 
 	/**
 	 * Create a new RowMapperSheetExtractor.
-	 * @param aRowMapper the RowMapper which creates an object for each row
+	 * @param rowMapper the RowMapper which creates an object for each row
 	 */
 	public RowMapperSheetExtractor(RowMapper<T> rowMapper) {
 		this.rowMapper = rowMapper;
 	}
 
+	@Override
 	public List<T> extractData(HSSFSheet sheet) throws IOException {
 		List<T> rows = Lists.newArrayList();
 

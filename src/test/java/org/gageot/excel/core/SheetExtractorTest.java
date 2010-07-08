@@ -19,6 +19,7 @@ public class SheetExtractorTest {
 	@Test
 	public void readWithSheetExtractor() {
 		int[] rows = reader.read(TAB_NAME, new SheetExtractor<int[]>() {
+			@Override
 			public int[] extractData(HSSFSheet sheet) {
 				return new int[] {
 						sheet.getFirstRowNum(), sheet.getLastRowNum()
