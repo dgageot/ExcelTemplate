@@ -17,6 +17,7 @@
 package org.gageot.excel.core;
 
 import static com.google.common.base.Preconditions.*;
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -159,9 +160,9 @@ public class ExcelTemplate implements InitializingBean {
 
 		InputStream in = null;
 		try {
-			in = getResource().getInputStream();
+			in = new BufferedInputStream(getResource().getInputStream());
 
-			return transform.apply(new HSSFWorkbook(in));
+			return transform.apply(new HSSFWorkbook(in, false));
 		} catch (IOException e) {
 			throw new DataAccessResourceFailureException("Problem reading file", e);
 		} finally {
